@@ -1,0 +1,58 @@
+Build 1 Part A: Known Issues
+
+Question:
+In software development, a “known issue” is one that the developer is aware of,
+could not attend to, and notes for subsequent work as a professional obligation.
+They are not considered serious at this stage, and they often refer to clear
+improvements. In 1 or 2 sentences, explain why and how the one above is indeed
+an issue.
+
+Answer:
+The "known issue" is in-fact an issue because order matters for lists,
+so producing every list outcome will result in redundant partitions.
+Order should not matter for our output, so we need to return the set of all
+unique partitions.
+
+
+Build 1 Part B: Program decomposition +
+
+(a) Using the documentation supplied as comments in the code, explain why the
+postcondition is fulfilled. You can assume that each code block fulfils its
+stated objectives.
+
+'''
+Returns: returned_partitions = all partitions of (S union {a_new_element})
+'''
+
+Answer:
+The function returns all partitions of a set S union a_new_element. This is
+fulfilled because the function first loops through each partition (_partition)
+of some_partitions. Then the function loops through each element of _partition.
+Each time this occurs, a variable new_partition is created with the original
+value of _partition,  a_new_element is appended to the element at position "i"
+of new_partition, and new_partition is appended to returned_partitions.
+
+Next, the function loops through all partitions (_partition) of some_partitions,
+a variable appended_partition is created with the original value of _partition,
+a_new_element is appended to appended_partition, and appended_partition is
+appended to returned_partitions.
+
+These two loops take unique combinations of a_new_element & elements
+within set S and append them to returned_partitions, and returned_partitions is
+returned by the function.
+
+(b) Explain why deepcopy() was used rather than just copy(). You may need to do
+a bit of research.
+
+Answer:
+copy() will have new_partition and _partition (as well as appended_partition and
+_partition) share memory space. When new_partition is changed (like when
+a_new_element is appended to it) the value of _partition is also changed.*
+
+*When de-bugging the code with copy.copy(), I realized that this also changed
+the value of some_partitions.
+
+
+When copy.deepcopy() is used, new_partition will get the original value of
+_partition, but it will not share memory space. When new_partition is changed,
+_partition will keep its original value.
